@@ -1,0 +1,105 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Главная{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/6.4.css' %}">
+{% endblock %}
+{% block content %}
+
+
+    <div class="left-column">
+
+
+        <div class="tabs">
+            <div class="tab">Tag: {{ tag }}</div>
+        </div>
+
+        <div class="question-card">
+            <div class="question-left">
+                <div class="question-avatar">avatar</div>
+                <div class="votes">
+                    <label for="inp1"></label><input type="number" class="inp-btn" id="inp1" name="inp1" min="5"
+                                                     max="6"/>
+                </div>
+            </div>
+
+            <div class="question-right">
+                <a href="#"><h3 class="question-title">How to build a moon park ?</h3></a>
+                <div class="question-body">
+                    Guys, I have trouble with a moon park.<br>
+                    Can't find th black-jack...
+                </div>
+                <div class="question-meta">
+                    <div><a href="#" class="answer-link">answer (3)</a></div>
+                    <div>Tags: <span class="tag">black-jack</span> <span class="tag">bender</span></div>
+                </div>
+
+
+            </div>
+        </div>
+
+        <div class="question-card">
+            <div class="question-left">
+                <div class="question-avatar">avatar</div>
+                <div class="votes">
+                    <label for="inp2"></label><input type="number" class="inp-btn" id="inp2" name="inp1" min="5"
+                                                     max="6"/>
+                </div>
+            </div>
+
+            <div class="question-right">
+                <a href="#"><h3 class="question-title">How to build a moon park ?</h3></a>
+                <div class="question-body">
+                    Guys, I have trouble with a moon park.<br>
+                    Can't find th black-jack...
+                </div>
+                <div class="question-meta">
+                    <div><a href="#" class="answer-link">answer (3)</a></div>
+                    <div>Tags: <span class="tag">black-jack</span> <span class="tag">bender</span></div>
+                </div>
+
+
+            </div>
+        </div>
+        <div class="question-card">
+            <div class="question-left">
+                <div class="question-avatar">avatar</div>
+                <div class="votes">
+                    <label for="inp3"></label><input type="number" class="inp-btn" id="inp3" name="inp1" min="5"
+                                                     max="6"/>
+                </div>
+            </div>
+
+            <div class="question-right">
+                <a href="#"><h3 class="question-title">How to build a moon park ?</h3></a>
+                <div class="question-body">
+                    Guys, I have trouble with a moon park.<br>
+                    Can't find th black-jack...
+                </div>
+                <div class="question-meta">
+                    <div><a href="#" class="answer-link">answer (3)</a></div>
+                    <div>Tags: <span class="tag">black-jack</span> <span class="tag">bender</span></div>
+                </div>
+
+
+            </div>
+        </div>
+
+        <div class="pagination">
+            {% for page in pages %}
+                <a href="/?page={{ page }}">
+                    <div class="page-number active shadow">{{ page }}</div>
+                </a>
+            {% endfor %}
+        </div>
+    </div>
+
+    <script>
+        document.getElementById("inp1").value = 5;
+        document.getElementById("inp2").value = 5;
+        document.getElementById("inp3").value = 5;
+
+    </script>
+{% endblock %}

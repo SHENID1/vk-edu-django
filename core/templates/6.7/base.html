@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Главная{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/6.7.css' %}">
+{% endblock %}
+{% block content %}
+
+
+    <div class="left-column">
+
+
+        <h1>Registration</h1>
+
+        <div class="error-message">Sorry, this email address already registered!</div>
+
+        <div class="form-group">
+            <label class="form-label">Login</label>
+            <label>
+                <input type="text" class="form-input" value="dr_pepper">
+            </label>
+        </div>
+
+        <div class="form-group">
+            <label class="form-label">Email</label>
+            <label>
+                <input type="email" class="form-input" value="drpepper@mail.ru">
+            </label>
+        </div>
+
+        <div class="form-group">
+            <label class="form-label">NickName</label>
+            <label>
+                <input type="text" class="form-input" value="Dr. Pepper">
+            </label>
+        </div>
+
+        <div class="form-group">
+            <label class="form-label">Password</label>
+            <label>
+                <input type="password" class="form-input" value="*******">
+            </label>
+        </div>
+
+        <div class="form-group">
+            <label class="form-label">Repeat password</label>
+            <label>
+                <input type="password" class="form-input" value="*******">
+            </label>
+        </div>
+
+        <div class="form-group">
+            <label class="form-label">Upload avatar</label>
+            <div class="avatar-wrapper">
+                <input type="file" id="avatar-upload" class="file-input" accept="image/*">
+                <div class="fake-file-input" id="file-path">c:\avatar.jpg</div>
+                <label for="avatar-upload" class="choose-button">choose</label>
+            </div>
+        </div>
+
+        <button class="register-button shadow">Register!</button>
+
+        <script>
+            document.getElementById('avatar-upload').addEventListener('change', function (e) {
+                const filePath = e.target.value;
+                console.log(e)
+                if (filePath) {
+                    document.getElementById('file-path').textContent = filePath;
+                }
+            });
+        </script>
+    </div>
+
+    <script>
+        document.getElementById("inp1").value = 5;
+        document.getElementById("inp2").value = 5;
+        document.getElementById("inp3").value = 5;
+
+    </script>
+{% endblock %}

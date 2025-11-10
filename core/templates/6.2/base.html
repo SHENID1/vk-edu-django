@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Главная{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/6.2.css' %}">
+{% endblock %}
+{% block content %}
+
+    <div class="form-container">
+        <h2 style="margin-bottom: 25px">New Question</h2>
+
+        <div class="form-group">
+            <label for="title" class="w-50">Title</label>
+            <input type="text" id="title" value="Как написать НИРС за 3 дня ?">
+        </div>
+
+        <div class="form-group">
+            <label for="text" class="w-50">Text</label>
+            <textarea id="text">Реально, как ?
+У меня нет времени</textarea>
+        </div>
+
+        <div class="form-group">
+            <label for="tags" class="w-50">Tags</label>
+            <input type="text" id="tags" value="moon, park, puzzle">
+        </div>
+
+        <button class="shadow">ASK!</button>
+    </div>
+
+
+<script>
+    document.getElementById("inp1").value = 5;
+    document.getElementById("inp2").value = 5;
+    document.getElementById("inp3").value = 5;
+
+</script>
+{% endblock %}

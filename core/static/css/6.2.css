@@ -376,12 +376,6 @@ button:hover {
     margin-bottom: 20px;
 }
 
-.tag-item {
-    padding: 5px 10px;
-    border-radius: 3px;
-    font-size: 14px;
-}
-
 .member-list {
     list-style-type: none;
     padding: 0;

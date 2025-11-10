@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Главная{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/6.1.css' %}">
+{% endblock %}
+
+{% block content %}
+    <div class="left-column">
+        <div class="tabs">
+            <a href="/ask">
+                <div class="tab">New Questions</div>
+            </a>
+            <a class="tab" href="/hot/">Hot Questions</a>
+        </div>
+        {% for question in new_questions %}
+            <div class="question-card">
+                <div class="question-left">
+                    <div class="question-avatar">avatar</div>
+                    <div class="votes">
+                        <label for="inp1"></label><input type="number" class="inp-btn" name="inp"
+                                                         min="5"
+                                                         max="6"/>
+                    </div>
+                </div>
+
+                <div class="question-right">
+                    <a href="/question/?id={{ question.id }}"><h3 class="question-title">{{ question.question_text }}</h3></a>
+                    <div class="question-body">
+                        {{ question.question_detail_text }}
+                    </div>
+                    <div class="question-meta">
+                        <div><a href="#" class="answer-link">answer (3)</a></div>
+                        <div>Tags: <span class="tag">black-jack</span> <span class="tag">bender</span></div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+
+        <div class="pagination">
+            {% for page in pages %}
+                <a href="/?page={{ page }}">
+                    <div class="page-number active shadow">{{ page }}</div>
+                </a>
+            {% endfor %}
+            {#            <div class="page-number dots shadow">...</div>#}
+            {#            <div class="page-number shadow">53</div>#}
+        </div>
+    </div>
+
+
+    <script>
+        const els = document.getElementsByName("inp");
+        els.forEach(
+            (e) => e.value = 5
+        );
+
+    </script>
+
+{% endblock %}

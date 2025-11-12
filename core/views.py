@@ -1,39 +1,31 @@
 import math
-from aiohttp.web_urldispatcher import View
 from django.shortcuts import render
 from django.views.generic import TemplateView
-from django.http import JsonResponse
+
+from core.models import Question, Tag
 
 
-# Create your views here.
-def indexMain(request):
-    # print(request)
-    return render(request, '6.1/index.html')
-
-
-def indexAnswer(request):
-    # print(request)
-    return render(request, '6.2/base.html')
+def get_fake_questions():
+    return Question.objects.all()
+    # return [{
+    #     "id": i,
+    #     "question_text": f"Вопрос #{i}",
+    #     "question_detail_text": "You have 18 unapplied migration(s). Your project may not work properly until you apply the migrations for app(s): admin, auth, contenttypes, sessions."
+    # } for i in range(1, self.COUNT_FAKE_QUESTIONS + 1)]
 
 
 class IndexView(TemplateView):
     http_method_names = ['get', ]
     template_name = '6.1/index.html'
-    COUNT_FAKE_QUESTIONS = 15
-    QUESTIONS_PER_PAGE = 5
+    COUNT_FAKE_QUESTIONS = Question.objects.count()
+    QUESTIONS_PER_PAGE = 15
 
     def dispatch(self, request, *args, **kwargs):
         # print(request.GET)
         return super(IndexView, self).dispatch(request, *args, **kwargs)
 
-    def get_fake_questions(self):
-        return [{
-            "id": i,
-            "question_text": f"Вопрос #{i}",
-            "question_detail_text": "You have 18 unapplied migration(s). Your project may not work properly until you apply the migrations for app(s): admin, auth, contenttypes, sessions."
-        } for i in range(1, self.COUNT_FAKE_QUESTIONS + 1)]
-
     def get_context_data(self, **kwargs):
+
         context = super(IndexView, self).get_context_data(**kwargs)
         page = int(self.request.GET.get('page', 1))
         context["page"] = page
@@ -41,12 +33,12 @@ class IndexView(TemplateView):
         context["questions_per_page"] = self.QUESTIONS_PER_PAGE
         context["max_page"] = math.ceil(self.COUNT_FAKE_QUESTIONS / self.QUESTIONS_PER_PAGE)
         context['pages'] = [i for i in range(1, context["max_page"] + 1)]
-
+        context['tags'] = Tag.objects.all()
         if page == 1:
-            context['new_questions'] = self.get_fake_questions()[0: self.QUESTIONS_PER_PAGE]
+            context['new_questions'] = get_fake_questions()[0: self.QUESTIONS_PER_PAGE]
         else:
-            context['new_questions'] = self.get_fake_questions()[(page - 1) * self.QUESTIONS_PER_PAGE: ((
-                                                                                                                page - 1) * self.QUESTIONS_PER_PAGE) + self.QUESTIONS_PER_PAGE]
+            context['new_questions'] = get_fake_questions()[(page - 1) * self.QUESTIONS_PER_PAGE: ((
+                                                        page - 1) * self.QUESTIONS_PER_PAGE) + self.QUESTIONS_PER_PAGE]
 
         return context
 
@@ -80,7 +72,7 @@ class QuestionView(TemplateView):
                 "correct": False,
                 "rating": 5,
                 "avatar_url": "https://i.pinimg.com/736x/41/6c/81/416c81ffd68216ad4a9c66932015aac4.jpg",
-            },{
+            }, {
                 "answer_text": "Python top",
                 "correct": True,
                 "rating": 6,
@@ -104,6 +96,7 @@ class QuestionView(TemplateView):
         context["answers"] = data["answers"]
 
         return context
+
 
 class TopQuestionView(TemplateView):
     http_method_names = ['get', ]
@@ -135,9 +128,11 @@ class TopQuestionView(TemplateView):
         if page == 1:
             context['new_questions'] = self.get_fake_questions()[0: self.QUESTIONS_PER_PAGE]
         else:
-            context['new_questions'] = self.get_fake_questions()[(page - 1) * self.QUESTIONS_PER_PAGE: ((page - 1) * self.QUESTIONS_PER_PAGE) + self.QUESTIONS_PER_PAGE]
+            context['new_questions'] = self.get_fake_questions()[(page - 1) * self.QUESTIONS_PER_PAGE: ((
+                                                                                                                    page - 1) * self.QUESTIONS_PER_PAGE) + self.QUESTIONS_PER_PAGE]
 
         return context
+
     def get_fake_data(self, tag):
         return {
             "tag": tag,  # ← используем переданный тег
@@ -148,7 +143,6 @@ class TopQuestionView(TemplateView):
             }]
         }
 
-
     def get_context_data(self, **kwargs):
         context = super(TopQuestionView, self).get_context_data(**kwargs)
         tag = self.request.GET.get('tag', "bender")
@@ -157,6 +151,7 @@ class TopQuestionView(TemplateView):
         context["question"] = data["tag"]
 
         return context
+
 
 class SettingsView(TemplateView):
     http_method_names = ['get', ]
@@ -170,6 +165,7 @@ class SettingsView(TemplateView):
         context = super(SettingsView, self).get_context_data(**kwargs)
         return context
 
+
 class LoginView(TemplateView):
     http_method_names = ['get', ]
     template_name = '6.6/base.html'
@@ -181,6 +177,7 @@ class LoginView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super(LoginView, self).get_context_data(**kwargs)
         return context
+
 
 class RegisterView(TemplateView):
     http_method_names = ['get', ]

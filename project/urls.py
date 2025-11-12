@@ -27,6 +27,6 @@ urlpatterns = [
     path('settings/', SettingsView.as_view()),
     path('login/', LoginView.as_view()),
     path('signup/', RegisterView.as_view()),
-    # path('admin/', admin.site.urls),
-    # path('admin/', admin.site.urls),
+    path('admin/', admin.site.urls),
+
 ]

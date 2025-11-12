@@ -27,13 +27,17 @@
                 </div>
 
                 <div class="question-right">
-                    <a href="/question/?id={{ question.id }}"><h3 class="question-title">{{ question.question_text }}</h3></a>
+                    <a href="/question/?id={{ question.id }}"><h3 class="question-title">{{ question.title }}</h3></a>
                     <div class="question-body">
-                        {{ question.question_detail_text }}
+                        {{ question.detailed }}
                     </div>
                     <div class="question-meta">
                         <div><a href="#" class="answer-link">answer (3)</a></div>
-                        <div>Tags: <span class="tag">black-jack</span> <span class="tag">bender</span></div>
+                        <div>Tags:
+                            {% for tag in tags %}
+                        <a href="/?tag={{ tag.title }}" class="tag">{{ tag.title }}</a>
+                        {% endfor %}
+                        </div>
                     </div>
                 </div>
             </div>

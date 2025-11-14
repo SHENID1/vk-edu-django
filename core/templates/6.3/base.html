@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+{% block title %}Задать вопрос{% endblock %}
+{% load static %}
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/6.3.css' %}">
+{% endblock %}
+{% block content %}
+
+
+    <div class="left-column">
+        <div class="container h-300">
+            <div class="question-header">
+                <div class="question-left">
+                    <div class="question-b-avatar"><img width="80px" height="80px" src="{{ avatar_url }}" alt="Аватар"/>
+                    </div>
+                    <div class="votes">
+                        <label for="inp1"></label><input type="number" class="inp-btn" id="inp1" name="inp1" min="5"
+                                                         max="6" value="{{ author_rating }}"/>
+                    </div>
+                </div>
+                <div class="text-container">
+                    <h1 class="question-title">{{ question_title }}</h1>
+                    <p class="question-text">{{ question_detail_text }}</p>
+                    <div class="tags">
+                        Tags: <a href="/hot/?tag=black-jack">black-jack</a> <a href="/hot/?tag=bender">bender</a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Ответ 1 -->
+        {% for answer in answers %}
+            <div class="container">
+                <div class="answer-row">
+                    <div class="question-left">
+                        <div class="question-avatar"><img width="60px" height="60px" src="{{ answer.avatar_url }}"
+                                                          alt="Аватар"/></div>
+                        <div class="votes">
+                            <label for="inp2"></label>
+                            <input type="number" class="inp-btn" id="inp2" name="inp1" min="5" max="6"
+                                   value="{{ author_rating }}"/>
+                        </div>
+                    </div>
+                    <div class="answer-content">
+                        <p class="answer-text">{{ answer.answer_text }}</p>
+                        <div style="display: flex; align-items: center; margin-bottom: 5px;">
+                            <input type="checkbox" id="ck{{ forloop.counter }}" name="scales"
+                                   {% if answer.correct %}checked{% endif %}
+                                   style="margin-right: 3px;"/>
+                            <label for="ck{{ forloop.counter }}">Correct!</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+
+
+        <!-- Разделитель -->
+        <div class="divider"></div>
+
+        <!-- Поле ввода и кнопка -->
+        <label>
+            <textarea class="answer-input" placeholder="Enter your answer here."></textarea>
+        </label>
+        <button class="answer-button shadow">Answer</button>
+    </div>
+
+
+    <script>
+        document.getElementById("inp1").value = 5;
+        document.getElementById("inp2").value = 5;
+        document.getElementById("inp3").value = 5;
+
+    </script>
+{% endblock %}

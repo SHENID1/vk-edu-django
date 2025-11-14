@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Главная{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/6.5.css' %}">
+{% endblock %}
+{% block content %}
+
+
+    <div class="left-column">
+
+
+        <h1>Settings: Dr. Pepper</h1>
+
+        <div class="form-group">
+            <label class="form-label">Login</label>
+            <label>
+                <input type="text" class="form-input" value="dr_pepper">
+            </label>
+        </div>
+
+        <div class="form-group">
+            <label class="form-label">Email</label>
+            <label>
+                <input type="email" class="form-input" value="drpepper@mail.ru">
+            </label>
+        </div>
+
+        <div class="form-group">
+            <label class="form-label">NickName</label>
+            <label>
+                <input type="text" class="form-input" value="Dr. Perpper">
+            </label>
+        </div>
+
+        <div class="form-group">
+            <label class="form-label">Upload avatar</label>
+            <div class="avatar-container">
+                <div class="avatar-placeholder">avatar</div>
+                <div class="file-input-wrapper">
+                    <div class="file-path">c:\avatar.jpg</div>
+                    <label>
+                        <input type="file" class="choose-button">
+                    </label>
+
+                </div>
+            </div>
+        </div>
+
+        <button class="save-button shadow" type="submit">Save</button>
+    </div>
+
+
+    <script>
+        document.getElementById("inp1").value = 5;
+        document.getElementById("inp2").value = 5;
+        document.getElementById("inp3").value = 5;
+
+    </script>
+{% endblock %}

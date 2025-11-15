@@ -30,6 +30,7 @@ class Question(DefaultModel):
     detailed = models.TextField()
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     tags = models.ManyToManyField('Tag', blank=True, verbose_name="Теги")
+    rating = models.IntegerField(default=0)
 
     def __str__(self):
         return str(self.title)
@@ -47,6 +48,7 @@ class Answer(DefaultModel):
     question = models.ForeignKey(Question, on_delete=models.CASCADE)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     answer_text = models.TextField()
+    rating = models.IntegerField()
 
     def __str__(self):
         return "Ответ на вопрос ID=" + str(self.question_id)

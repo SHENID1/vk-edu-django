@@ -61,25 +61,27 @@ class QuestionView(TemplateView):
     template_name = '6.3/base.html'
 
     def get_fake_data(self, id):
-        return {
-            "id": id,
-            "question_title": f"Вопрос #{id}",
-            "question_detail_text": "You have 18 unapplied migration(s). Your project may not work properly until you apply the migrations for app(s): admin, auth, contenttypes, sessions.",
-            "author_rating": 5,
-            "avatar_url": "https://i.pinimg.com/736x/41/6c/81/416c81ffd68216ad4a9c66932015aac4.jpg",
-            "answers": [{
-                "answer_text": "WARNING: This is a development server. Do not use it in a production setting. Use a production WSGI or ASGI server instead.",
-                "correct": False,
-                "rating": 5,
-                "avatar_url": "https://i.pinimg.com/736x/41/6c/81/416c81ffd68216ad4a9c66932015aac4.jpg",
-            }, {
-                "answer_text": "Python top",
-                "correct": True,
-                "rating": 6,
-                "avatar_url": "https://cdn.discordapp.com/attachments/1061702220686577795/1437549172805861517/hyrax-rock-hyrax.gif?ex=6913a57f&is=691253ff&hm=fcc72870ecb0014f95067d281b2f3b798c3adde2742af4c02a7512cdfb37cfd7&",
-            }
-            ]
-        }
+        return Question.objects.get(id=id)
+
+        # return {
+        #     "id": id,
+        #     "question_title": f"Вопрос #{id}",
+        #     "question_detail_text": "You have 18 unapplied migration(s). Your project may not work properly until you apply the migrations for app(s): admin, auth, contenttypes, sessions.",
+        #     "author_rating": 5,
+        #     "avatar_url": "https://i.pinimg.com/736x/41/6c/81/416c81ffd68216ad4a9c66932015aac4.jpg",
+        #     "answers": [{
+        #         "answer_text": "WARNING: This is a development server. Do not use it in a production setting. Use a production WSGI or ASGI server instead.",
+        #         "correct": False,
+        #         "rating": 5,
+        #         "avatar_url": "https://i.pinimg.com/736x/41/6c/81/416c81ffd68216ad4a9c66932015aac4.jpg",
+        #     }, {
+        #         "answer_text": "Python top",
+        #         "correct": True,
+        #         "rating": 6,
+        #         "avatar_url": "https://cdn.discordapp.com/attachments/1061702220686577795/1437549172805861517/hyrax-rock-hyrax.gif?ex=6913a57f&is=691253ff&hm=fcc72870ecb0014f95067d281b2f3b798c3adde2742af4c02a7512cdfb37cfd7&",
+        #     }
+        #     ]
+        # }
 
     def dispatch(self, request, *args, **kwargs):
         # print(request.GET)
@@ -89,11 +91,11 @@ class QuestionView(TemplateView):
         context = super(QuestionView, self).get_context_data(**kwargs)
         id = int(self.request.GET.get('id', 1))
         data = self.get_fake_data(id)
-        context["avatar_url"] = data["avatar_url"]
-        context["question_title"] = data["question_title"]
-        context["question_detail_text"] = data["question_detail_text"]
-        context["author_rating"] = data["author_rating"]
-        context["answers"] = data["answers"]
+        context["avatar_url"] = data.author.avatar
+        context["question_title"] = data.title
+        context["question_detail_text"] = data.detailed
+        context["author_rating"] = data.rating
+        context["answers"] = data.answer_set.all()
 
         return context
 
